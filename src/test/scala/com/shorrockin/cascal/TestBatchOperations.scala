@@ -49,17 +49,19 @@ class TestBatchOperations extends EmbeddedCassandra {
     val col2 = key \ ("Column-2", "Value-2")
     val col3 = key \ ("Column-3", "Value-3")
     val col4 = key \ ("Column-4", "Value-4")
+    val col5 = key \ ("Column-5", "Value-5")
 
-    s.batch(Insert(col1) :: Insert(col2) :: Insert(col3))
-    assertEquals(3, s.list(key).size)
+    s.batch(Insert(col1) :: Insert(col2) :: Insert(col3) :: Insert(col4))
+    assertEquals(4, s.list(key).size)
 
-    s.batch(Delete(key, ColumnPredicate(col2.name :: col3.name :: Nil)) :: Insert(col4))
+    s.batch(Delete(key, ColumnPredicate(col2.name :: col3.name :: Nil)) :: Delete(col4) :: Insert(col5))
 
     assertEquals(2, s.list(key).size)
     assertEquals(None, s.get(col2))
     assertEquals(None, s.get(col3))
+    assertEquals(None, s.get(col4))
     assertEquals("Value-1", string(s.get(col1).get.value))
-    assertEquals("Value-4", string(s.get(col4).get.value))
+    assertEquals("Value-5", string(s.get(col5).get.value))
   }
 
   @Test def testBatchSuperDelete = borrow { (s) =>

@@ -45,6 +45,7 @@ case class Add(val column:CounterColumn[_]) extends Operation {
 case object Delete {
   def apply(container:ColumnContainer[_, _], predicate:Predicate) = new Delete(container, predicate)
   def apply(container:ColumnContainer[_, _]) = new Delete(container, EmptyPredicate)
+  def apply(column:Column[_]) = new Delete(column.key, ColumnPredicate(column.name :: Nil))
 }
 
 /**
