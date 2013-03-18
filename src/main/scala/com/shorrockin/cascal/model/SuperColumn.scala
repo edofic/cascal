@@ -27,7 +27,7 @@ case class SuperColumn(val value:ByteBuffer, val key:SuperKey) extends Gettable[
   def ::(other:SuperColumn):List[SuperColumn] = other :: this :: Nil
 
   private def convertList[T](v:java.util.List[T]):List[T] = {
-	 scala.collection.JavaConversions.asBuffer(v).toList
+	 scala.collection.JavaConversions.asScalaBuffer(v).toList
   }
 
   /**
