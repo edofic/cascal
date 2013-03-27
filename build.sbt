@@ -24,3 +24,5 @@ publishTo <<= (version) { version: String =>
         if  (version.trim.endsWith("SNAPSHOT"))  "snapshots"
         else                                     "releases/" }    ))
 }
+
+scalacOptions ++= Seq("-feature", "-Xlog-implicits")

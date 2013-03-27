@@ -1,5 +1,6 @@
 package com.shorrockin.cascal.utils
 
+import scala.language.implicitConversions
 import java.nio.charset.Charset
 import com.shorrockin.cascal.model.{Column, Keyspace}
 import java.util.{Date, UUID => JavaUUID}
